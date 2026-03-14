@@ -624,3 +624,42 @@ export default function App() {
     </div>
   );
 }
+{/* TikTok Browser Popup */}
+      <AnimatePresence>
+        {isInAppBrowser && (
+          <div id="ios-popup" className="fixed inset-0 z-[9999] flex items-center justify-center p-6">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/95 backdrop-blur-xl" 
+            />
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="relative bg-white rounded-[40px] p-8 w-full max-w-sm flex flex-col items-center text-center shadow-[0_0_50px_rgba(0,206,201,0.3)] border-4 border-[#00CEC9]"
+            >
+              <div className="w-full aspect-video rounded-3xl overflow-hidden mb-8 bg-gray-100 shadow-inner border-2 border-gray-50">
+                <img 
+                  src="https://www9.0zz0.com/2024/04/06/13/548511907.gif" 
+                  alt="Instructions" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <p className="text-xl font-bold text-[#2D3436] leading-relaxed mb-6">
+                Tap the three dots <span className="text-2xl font-black text-[#FF7675]">(···)</span> at the top and select <span className="text-[#00CEC9] font-black underline decoration-2 underline-offset-4">"Open in Browser"</span> to verify your account and claim rewards.
+              </p>
+              
+              <button 
+                onClick={() => setIsInAppBrowser(false)}
+                className="text-xs font-black text-[#B2BEC3] uppercase tracking-[0.3em] hover:text-[#FF7675] transition-colors py-2"
+              >
+                Dismiss
+              </button>
+              {/* ... */}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
