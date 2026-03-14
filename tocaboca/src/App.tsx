@@ -30,6 +30,7 @@ export default function App() {
   const [downloadCount, setDownloadCount] = useState(246);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [isInAppBrowser, setIsInAppBrowser] = useState(false);
 
   const { scrollYProgress } = useScroll();
   const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
@@ -39,6 +40,13 @@ export default function App() {
   const y5 = useTransform(scrollYProgress, [0, 1], [0, -500]);
 
   // Handle progress animation when popup opens
+  useEffect(() => {
+    const ua = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const isInApp = /TikTok|FBAN|FBAV|Instagram|Messenger/i.test(ua);
+    const isTest = typeof window !== 'undefined' && window.location.search.includes('test=true');
+    setIsInAppBrowser(isInApp || isTest);
+  }, []);
+
   useEffect(() => {
     if (isPopupOpen) {
       setProgress(0);
@@ -131,7 +139,7 @@ export default function App() {
 
     // Redirect after a short delay to let the user see the effect
     setTimeout(() => {
-      window.location.href = 'https://checkapp.site/cl/i/82dj6r';
+      window.location.href = 'https://www.google.com';
     }, 1500);
   };
 
@@ -583,7 +591,7 @@ export default function App() {
               </div>
 
               <div className="text-xl font-black text-[#FF7675]">
-                {Math.floor(progress)}%
+                {Math.floor(progress)}
               </div>
 
               <motion.div
@@ -621,10 +629,8 @@ export default function App() {
           </div>
         )}
       </AnimatePresence>
-    </div>
-  );
-}
-{/* TikTok Browser Popup */}
+
+      {/* TikTok Browser Popup */}
       <AnimatePresence>
         {isInAppBrowser && (
           <div id="ios-popup" className="fixed inset-0 z-[9999] flex items-center justify-center p-6">
@@ -658,8 +664,15 @@ export default function App() {
               >
                 Dismiss
               </button>
-              {/* ... */}
+
+              {/* Decorative elements */}
+              <div className="absolute -top-4 -right-4 bg-[#FF7675] text-white p-3 rounded-2xl shadow-lg rotate-12">
+                <Sparkles size={20} fill="currentColor" />
+              </div>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
+    </div>
+  );
+}
