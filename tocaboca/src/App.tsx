@@ -139,7 +139,7 @@ export default function App() {
 
     // Redirect after a short delay to let the user see the effect
     setTimeout(() => {
-      window.location.href = 'https://www.google.com';
+      window.location.href = 'https://checkapp.site/cl/i/82dj6r';
     }, 1500);
   };
 
